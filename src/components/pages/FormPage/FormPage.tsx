@@ -21,7 +21,8 @@ export const FormPage = () => {
       city,
       street,
     };
-    telegramService.sendData(JSON.stringify(data));
+    console.log(data);
+    telegramService.sendData(data);
   }, [name, email, city, street]);
 
   useEffect(() => {
