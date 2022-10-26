@@ -30,7 +30,7 @@ export const FormPage = () => {
     return () => {
       telegramService.offEvent("mainButtonClicked", onSubmit);
     };
-  }, [onSubmit]);
+  }, []);
 
   useEffect(() => {
     const isShowButton = [name, email, city, street].every(Boolean);
