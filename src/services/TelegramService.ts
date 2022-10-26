@@ -11,6 +11,10 @@ class TelegramService {
     this.telegram.ready();
   }
 
+  sendData(data: unknown) {
+    this.telegram.sendData(data);
+  }
+
   getMainButton() {
     return {
       text: this.telegram.MainButton.text,

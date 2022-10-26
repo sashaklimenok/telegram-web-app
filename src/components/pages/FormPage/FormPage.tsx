@@ -14,10 +14,8 @@ export const FormPage = () => {
   const [street, setStreet] = useState("");
   const mainButton = telegramService.getMainButton();
 
-  console.log(name, email, city, street);
-
   const onFinish = (values: any) => {
-    console.log(values);
+    telegramService.sendData(values)
   };
 
   useEffect(() => {
