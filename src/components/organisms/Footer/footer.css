@@ -2,6 +2,6 @@
   display: flex;
   justify-content: center;
   padding: 24px;
-  background-color: var(--tg-theme-bg-color);
+  background-color: var(--tg-theme-button-color);
   color: var(--tg-theme-text-color);
 }
