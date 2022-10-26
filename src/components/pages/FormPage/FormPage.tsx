@@ -1,8 +1,8 @@
 import { Button, Form, Input, Select } from "antd";
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 2 },
+  wrapperCol: { span: 22 },
 };
 
 export const FormPage = () => {
@@ -47,7 +47,7 @@ export const FormPage = () => {
           </Form.Item>
         </Input.Group>
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: layout.labelCol.span }}>
         <Button type="primary" htmlType="submit">
           Отправить
         </Button>
