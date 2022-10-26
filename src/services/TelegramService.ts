@@ -6,6 +6,7 @@ class TelegramService {
   constructor() {
     this.telegram = Telegram.WebApp;
     this.telegram.ready();
+    console.log(this.telegram);
   }
 
   getUserData() {
