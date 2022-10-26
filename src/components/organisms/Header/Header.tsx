@@ -20,7 +20,7 @@ export const Header = () => {
         </div>
         <Typography.Text
           strong
-        >{`${firstName} asd ${lastName} asd`}</Typography.Text>
+        >{`${firstName} ${lastName}`}</Typography.Text>
       </div>
     </header>
   );
