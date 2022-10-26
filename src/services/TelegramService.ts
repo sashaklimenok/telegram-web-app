@@ -15,6 +15,14 @@ class TelegramService {
     this.telegram.sendData(data);
   }
 
+  onEvent(eventType: TelegramWebApps.EventType, eventHandler: Function) {
+    this.telegram.onEvent(eventType, eventHandler);
+  }
+
+  offEvent(eventType: TelegramWebApps.EventType, eventHandler: Function) {
+    this.telegram.offEvent(eventType, eventHandler);
+  }
+
   getMainButton() {
     return {
       text: this.telegram.MainButton.text,

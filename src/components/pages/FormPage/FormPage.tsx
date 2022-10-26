@@ -1,5 +1,5 @@
 import { Form, Input, Select } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { telegramService } from "services";
 
 const layout = {
@@ -14,9 +14,23 @@ export const FormPage = () => {
   const [street, setStreet] = useState("");
   const mainButton = telegramService.getMainButton();
 
-  const onFinish = (values: any) => {
-    telegramService.sendData(values)
-  };
+  const onSubmit = useCallback(() => {
+    const data = {
+      name,
+      email,
+      city,
+      street,
+    };
+    telegramService.sendData(JSON.stringify(data));
+  }, [name, email, city, street]);
+
+  useEffect(() => {
+    telegramService.onEvent("mainButtonClicked", onSubmit);
+    return () => {
+      telegramService.offEvent("mainButtonClicked", onSubmit);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const isShowButton = [name, email, city, street].every(Boolean);
@@ -33,11 +47,11 @@ export const FormPage = () => {
     mainButton.setParams({
       text: "Отправить",
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Form {...layout} name="nest-messages" onFinish={onFinish}>
+    <Form {...layout} name="nest-messages">
       <Form.Item
         name={["user", "name"]}
         label="Ваше имя"
