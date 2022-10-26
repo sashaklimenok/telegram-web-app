@@ -12,7 +12,7 @@ class TelegramService {
   }
 
   sendData(data: unknown) {
-    this.telegram.sendData(data);
+    this.telegram.sendData(JSON.stringify(data));
   }
 
   onEvent(eventType: TelegramWebApps.EventType, eventHandler: Function) {

@@ -30,8 +30,7 @@ export const FormPage = () => {
     return () => {
       telegramService.offEvent("mainButtonClicked", onSubmit);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [onSubmit]);
 
   useEffect(() => {
     const isShowButton = [name, email, city, street].every(Boolean);
