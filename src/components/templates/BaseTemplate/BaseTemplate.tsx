@@ -15,7 +15,7 @@ export const BaseTemplate: FC<BaseTemplateProps> = ({
   return (
     <div className="base-template">
       {header}
-      {content}
+      <div className="base-template-content">{content}</div>
       {footer}
     </div>
   );

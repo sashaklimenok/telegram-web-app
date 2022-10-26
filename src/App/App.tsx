@@ -1,3 +1,5 @@
+import { Footer, Header } from "components/organisms";
+import { BaseTemplate } from "components/templates";
 import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { telegramService } from "services";
@@ -9,8 +11,10 @@ export const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <BaseTemplate
+      header={<Header />}
+      content={<RouterProvider router={router} />}
+      footer={<Footer />}
+    />
   );
 };

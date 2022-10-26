@@ -13,8 +13,6 @@ class TelegramService {
 
   getUserData() {
     const userData = this.telegram.initDataUnsafe.user;
-    console.log(this.telegram);
-
     return {
       id: userData?.id,
       isBot: userData?.is_bot,
