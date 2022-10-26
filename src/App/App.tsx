@@ -1,12 +1,11 @@
-import { useTelegramApi } from "../hooks";
+import { RouterProvider } from "react-router-dom";
+import { router } from "../Router";
 
 export const App = () => {
-  const telegramApi = useTelegramApi();
 
   return (
     <div className="App">
-      App
-      <button onClick={() => telegramApi.close()}>Click</button>
+      <RouterProvider router={router} />
     </div>
   );
 };
