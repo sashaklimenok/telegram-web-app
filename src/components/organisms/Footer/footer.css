@@ -3,5 +3,5 @@
   justify-content: center;
   padding: 24px;
   background-color: var(--tg-theme-button-color);
-  color: var(--tg-theme-text-color);
+  color: var(--tg-theme-button-text-color)
 }
