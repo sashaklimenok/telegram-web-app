@@ -1,4 +1,6 @@
-import { Button, Form, Input, Select } from "antd";
+import { Form, Input, Select } from "antd";
+import { useEffect, useState } from "react";
+import { telegramService } from "services";
 
 const layout = {
   labelCol: { span: 2 },
@@ -6,9 +8,34 @@ const layout = {
 };
 
 export const FormPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const mainButton = telegramService.getMainButton();
+
+  console.log(name, email, city, street);
+
   const onFinish = (values: any) => {
     console.log(values);
   };
+
+  useEffect(() => {
+    const isShowButton = [name, email, city, street].every(Boolean);
+    if (isShowButton) {
+      mainButton.show();
+    } else {
+      mainButton.hide();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, email, city, street]);
+
+  useEffect(() => {
+    telegramService.ready();
+    mainButton.setParams({
+      text: "Отправить",
+    });
+  }, []);
 
   return (
     <Form {...layout} name="nest-messages" onFinish={onFinish}>
@@ -17,14 +44,14 @@ export const FormPage = () => {
         label="Ваше имя"
         rules={[{ required: true, message: "Не указано имя" }]}
       >
-        <Input />
+        <Input onChange={(evt) => setName(evt.target.value)} />
       </Form.Item>
       <Form.Item
         name={["user", "email"]}
         label="Email"
         rules={[{ type: "email", required: true, message: "Не указан Email" }]}
       >
-        <Input />
+        <Input onChange={(evt) => setEmail(evt.target.value)} />
       </Form.Item>
       <Form.Item label="Адрес">
         <Input.Group compact>
@@ -33,7 +60,10 @@ export const FormPage = () => {
             noStyle
             rules={[{ required: true, message: "Не указан город" }]}
           >
-            <Select placeholder="Укажите город">
+            <Select
+              placeholder="Укажите город"
+              onChange={(value) => setCity(value)}
+            >
               <Select.Option value="Минск">Минск</Select.Option>
               <Select.Option value="Гомель">Гомель</Select.Option>
             </Select>
@@ -43,14 +73,13 @@ export const FormPage = () => {
             noStyle
             rules={[{ required: true, message: "Не указана улица" }]}
           >
-            <Input style={{ width: "50%" }} placeholder="Введите улицу" />
+            <Input
+              style={{ width: "50%" }}
+              placeholder="Введите улицу"
+              onChange={(evt) => setStreet(evt.target.value)}
+            />
           </Form.Item>
         </Input.Group>
-      </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: layout.labelCol.span }}>
-        <Button type="primary" htmlType="submit">
-          Отправить
-        </Button>
       </Form.Item>
     </Form>
   );
