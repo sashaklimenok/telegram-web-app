@@ -5,7 +5,6 @@ class TelegramService {
 
   constructor() {
     this.telegram = Telegram.WebApp;
-    console.log(this.telegram);
   }
 
   ready() {
@@ -14,6 +13,7 @@ class TelegramService {
 
   getUserData() {
     const userData = this.telegram.initDataUnsafe.user;
+    console.log(this.telegram);
 
     return {
       id: userData?.id,
