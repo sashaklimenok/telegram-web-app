@@ -1,15 +1,15 @@
 import { Footer, Header } from "components/organisms";
+import { CatalogPage, FormPage } from "components/pages";
 import { BaseTemplate } from "components/templates";
-import { RouterProvider } from "react-router-dom";
-import { router } from "../Router";
+import { Route, Routes } from "react-router-dom";
 
 export const App = () => {
-
   return (
-    <BaseTemplate
-      header={<Header />}
-      content={<RouterProvider router={router} />}
-      footer={<Footer />}
-    />
+    <BaseTemplate header={<Header />} footer={<Footer />}>
+      <Routes>
+        <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/form" element={<FormPage />} />
+      </Routes>
+    </BaseTemplate>
   );
 };

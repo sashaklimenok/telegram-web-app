@@ -1,1 +1,2 @@
-export * from './CatalogPage';
+export * from "./CatalogPage";
+export * from "./FormPage";

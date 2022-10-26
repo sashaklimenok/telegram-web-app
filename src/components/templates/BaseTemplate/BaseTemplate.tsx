@@ -3,19 +3,19 @@ import "./baseTemplate.css";
 
 interface BaseTemplateProps {
   header: ReactNode;
-  content: ReactNode;
   footer: ReactNode;
+  children: ReactNode;
 }
 
 export const BaseTemplate: FC<BaseTemplateProps> = ({
   header,
-  content,
   footer,
+  children,
 }) => {
   return (
     <div className="base-template">
       {header}
-      <div className="base-template-content">{content}</div>
+      <div className="base-template-content">{children}</div>
       {footer}
     </div>
   );
