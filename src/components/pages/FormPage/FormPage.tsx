@@ -30,6 +30,7 @@ export const FormPage = () => {
     return () => {
       telegramService.offEvent("mainButtonClicked", onSubmit);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
