@@ -35,6 +35,7 @@ export const FormPage = () => {
     mainButton.setParams({
       text: "Отправить",
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
