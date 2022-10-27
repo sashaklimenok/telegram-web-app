@@ -15,7 +15,6 @@ export const CatalogPage = () => {
       (acc, curr) => curr.price + acc,
       product.price
     );
-    console.log(numberService.roundToHundredths(totalPrice));
     mainButton.setParams({
       text: `Купить (Total price ${numberService.roundToHundredths(totalPrice)}$)`,
     });
