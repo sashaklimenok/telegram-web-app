@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { numberService, telegramService } from "services";
 import { data, Product } from "./MOCK_DATA";
 import "./catalogPage.css";
+import { shoppingCart } from "services/apiService/ShoppingCartService";
 
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
@@ -16,13 +17,18 @@ export const CatalogPage = () => {
       product.price
     );
     mainButton.setParams({
-      text: `Купить (Total price ${numberService.roundToHundredths(totalPrice)}$)`,
+      text: `Купить (Total price ${numberService.roundToHundredths(
+        totalPrice
+      )}$)`,
     });
     shoppingCartData.length ? mainButton.show() : mainButton.hide();
   };
 
   const onSubmit = useCallback(() => {
-    telegramService.sendData(shoppingCartData);
+    shoppingCart.saveProducts({
+      queryId: telegramService.getQueryId() as string,
+      products: shoppingCartData,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shoppingCartData.length]);
 

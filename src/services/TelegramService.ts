@@ -23,6 +23,10 @@ class TelegramService {
     this.telegram.offEvent(eventType, eventHandler);
   }
 
+  getQueryId() {
+    return this.telegram.initDataUnsafe.query_id;
+  }
+
   getMainButton() {
     return {
       text: this.telegram.MainButton.text,
