@@ -30,7 +30,7 @@ export const CatalogPage = () => {
       products: shoppingCartData,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shoppingCartData.length]);
+  }, [shoppingCartData]);
 
   useEffect(() => {
     telegramService.onEvent("mainButtonClicked", onSubmit);
