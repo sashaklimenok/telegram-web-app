@@ -6,8 +6,6 @@ import { telegramService } from "services";
 export const Header = () => {
   const { photoUrl, firstName, lastName } = telegramService.getUserData();
 
-  console.log(telegramService.getUserData());
-
   return (
     <header className="header">
       <div>
