@@ -8,7 +8,7 @@ export class ApiService {
   protected async post(url: string, body: {} | Array<string | number>) {
     await fetch(`${API_URL}${url}`, {
       method: "POST",
-      headers: { "Content-Type": "application.json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
   }
