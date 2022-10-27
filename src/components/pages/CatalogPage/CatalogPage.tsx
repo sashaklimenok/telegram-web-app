@@ -3,6 +3,7 @@ import { Button, Card, Col, Row, Space, Image } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { telegramService } from "services";
 import { data, Product } from "./MOCK_DATA";
+import './catalogPage.css'
 
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
@@ -55,40 +56,38 @@ export const CatalogPage = () => {
 
   return (
     <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-      <Row gutter={[12, 24]} style={{ maxWidth: "560px", width: "100%" }}>
+      <div className="container">
         {data.map((item) => (
-          <Col span={12} key={item.id}>
-            <Card
-              hoverable
-              cover={
-                <Image
-                  width={200}
-                  height={300}
-                  style={{ objectFit: "contain" }}
-                  src={item.image}
-                />
-              }
-              style={{ textAlign: "center" }}
-            >
-              <Card.Meta
-                style={{ justifyContent: "center" }}
-                title={item.title}
-                description={`${item.price} $`}
+          <Card
+            hoverable
+            cover={
+              <Image
+                width={200}
+                height={300}
+                style={{ objectFit: "contain" }}
+                src={item.image}
               />
-              <Button
-                style={{ marginTop: "12px" }}
-                type="primary"
-                shape="round"
-                icon={<ShoppingCartOutlined />}
-                size={"small"}
-                onClick={() => onAddToCart(item)}
-              >
-                Добавить в корзину
-              </Button>
-            </Card>
-          </Col>
+            }
+            style={{ textAlign: "center" }}
+          >
+            <Card.Meta
+              style={{ justifyContent: "center" }}
+              title={item.title}
+              description={`${item.price} $`}
+            />
+            <Button
+              style={{ marginTop: "12px" }}
+              type="primary"
+              shape="round"
+              icon={<ShoppingCartOutlined />}
+              size={"small"}
+              onClick={() => onAddToCart(item)}
+            >
+              Добавить в корзину
+            </Button>
+          </Card>
         ))}
-      </Row>
+      </div>
     </Space>
   );
 };
