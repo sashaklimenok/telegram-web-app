@@ -43,7 +43,7 @@ export const CatalogPage = () => {
       }))
       .reduce((acc, curr) => curr.price + acc, 0);
     mainButton.setParams({
-      text: `Купить ${totalPrice}`,
+      text: `Купить (Total price ${totalPrice}$)`,
     });
     shoppingCartData.length ? mainButton.show() : mainButton.hide();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +57,7 @@ export const CatalogPage = () => {
     <Space direction="vertical" size="middle" style={{ display: "flex" }}>
       <Row gutter={[24, 24]}>
         {data.map((item) => (
-          <Col xs={12} sm={12} lg={6} key={item.id}>
+          <Col xs={24} sm={12} lg={6} key={item.id}>
             <Card
               hoverable
               cover={
