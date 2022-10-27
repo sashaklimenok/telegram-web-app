@@ -11,7 +11,7 @@ import { catalogApiService } from "services/apiService/CatalogApiService";
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
   const [catalogData, setCatalogData] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { getMainButton, getQueryId, ready, onEvent, offEvent } =
     telegramService;
   const { roundToHundredths } = numberService;
