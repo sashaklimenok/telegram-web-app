@@ -16,7 +16,7 @@ interface Product {
   category: string;
   image: string;
   rating: ProductRating;
-  quantity?: number;
+  quantity: number;
 }
 
 export const CatalogPage = () => {
@@ -51,10 +51,12 @@ export const CatalogPage = () => {
   }, [onSubmit]);
 
   useEffect(() => {
-    const totalPrice = shoppingCartData.reduce(
-      (acc, curr) => curr.price + acc,
-      0
-    );
+    const totalPrice = shoppingCartData
+      .map((item) => ({
+        ...item,
+        price: item.price * item.quantity ?? 1,
+      }))
+      .reduce((acc, curr) => curr.price + acc, 0);
     mainButton.setParams({
       text: `Купить ${totalPrice}`,
     });
