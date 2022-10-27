@@ -12,9 +12,12 @@ export const CatalogPage = () => {
 
   const onAddToCart = (product: Product) => {
     setShoppingCartData([...shoppingCartData, product]);
+  };
+
+  useEffect(() => {
     const totalPrice = shoppingCartData.reduce(
       (acc, curr) => curr.price + acc,
-      product.price
+      0
     );
     mainButton.setParams({
       text: `Купить (Total price ${numberService.roundToHundredths(
@@ -22,7 +25,7 @@ export const CatalogPage = () => {
       )}$)`,
     });
     shoppingCartData.length ? mainButton.show() : mainButton.hide();
-  };
+  }, [mainButton, shoppingCartData]);
 
   const onSubmit = useCallback(() => {
     shoppingCart.saveProducts({
