@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Space, Image } from "antd";
+import { Button, Card, Space, Image } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { telegramService } from "services";
 import { data, Product } from "./MOCK_DATA";
