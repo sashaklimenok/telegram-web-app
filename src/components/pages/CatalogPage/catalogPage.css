@@ -1,7 +1,19 @@
 .container {
   display: grid;
   grid-gap: 12px;
-  grid-template-columns: repeat(2, 50%);
-  max-width: 560px;
   width: 100%;
+  margin: 24px auto;
+}
+
+@media screen and (min-width: 320px) {
+  .container {
+    max-width: 320px;
+    grid-template-columns: 100%;
+  }
+}
+@media screen and (min-width: 480px) {
+  .container {
+    max-width: 480px;
+    grid-template-columns: repeat(2, calc(50% - 6px));
+  }
 }

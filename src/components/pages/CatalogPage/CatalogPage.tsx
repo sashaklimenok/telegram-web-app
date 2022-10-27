@@ -3,7 +3,7 @@ import { Button, Card, Space, Image } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { telegramService } from "services";
 import { data, Product } from "./MOCK_DATA";
-import './catalogPage.css'
+import "./catalogPage.css";
 
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
@@ -22,6 +22,17 @@ export const CatalogPage = () => {
           arr.findIndex((findItem) => findItem.id === item.id) === index
       );
     setShoppingCartData(data);
+
+    const totalPrice = shoppingCartData
+      .map((item) => ({
+        ...item,
+        price: item.price * item.quantity,
+      }))
+      .reduce((acc, curr) => curr.price + acc, 0);
+    mainButton.setParams({
+      text: `Купить (Total price ${totalPrice}$)`,
+    });
+    shoppingCartData.length ? mainButton.show() : mainButton.hide();
   };
 
   const onSubmit = useCallback(() => {
@@ -35,20 +46,6 @@ export const CatalogPage = () => {
       telegramService.offEvent("mainButtonClicked", onSubmit);
     };
   }, [onSubmit]);
-
-  useEffect(() => {
-    const totalPrice = shoppingCartData
-      .map((item) => ({
-        ...item,
-        price: item.price * item.quantity,
-      }))
-      .reduce((acc, curr) => curr.price + acc, 0);
-    mainButton.setParams({
-      text: `Купить (Total price ${totalPrice}$)`,
-    });
-    shoppingCartData.length ? mainButton.show() : mainButton.hide();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shoppingCartData.length]);
 
   useEffect(() => {
     telegramService.ready();
