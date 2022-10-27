@@ -10,25 +10,8 @@ export const CatalogPage = () => {
   const mainButton = telegramService.getMainButton();
 
   const onAddToCart = (product: Product) => {
-    const data = [...shoppingCartData, product]
-      .map((item, _, arr) => {
-        return {
-          ...item,
-          quantity: arr.filter((subItem) => subItem.id === item.id).length,
-        };
-      })
-      .filter(
-        (item, index, arr) =>
-          arr.findIndex((findItem) => findItem.id === item.id) === index
-      );
-    setShoppingCartData(data);
-
-    const totalPrice = shoppingCartData
-      .map((item) => ({
-        ...item,
-        price: item.price * item.quantity,
-      }))
-      .reduce((acc, curr) => curr.price + acc, 0);
+    setShoppingCartData([...shoppingCartData, product]);
+    const totalPrice = shoppingCartData.reduce((acc, curr) => curr.price + acc, 0);
     mainButton.setParams({
       text: `Купить (Total price ${totalPrice}$)`,
     });
