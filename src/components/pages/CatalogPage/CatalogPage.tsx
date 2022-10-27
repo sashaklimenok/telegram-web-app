@@ -2,22 +2,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Row, Space, Image } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { telegramService } from "services";
-import { data } from "./MOCK_DATA";
-
-interface ProductRating {
-  rate: number;
-  count: number;
-}
-
-interface Product {
-  id: number;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: ProductRating;
-  quantity: number;
-}
+import { data, Product } from "./MOCK_DATA";
 
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
@@ -54,7 +39,7 @@ export const CatalogPage = () => {
     const totalPrice = shoppingCartData
       .map((item) => ({
         ...item,
-        price: item.price * item.quantity ?? 1,
+        price: item.price * item.quantity,
       }))
       .reduce((acc, curr) => curr.price + acc, 0);
     mainButton.setParams({
