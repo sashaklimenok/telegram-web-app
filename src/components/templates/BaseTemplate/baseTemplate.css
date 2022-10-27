@@ -2,6 +2,9 @@
   display: grid;
   grid-template-rows: 60px 1fr;
   min-height: 100vh;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .base-template-content {

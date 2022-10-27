@@ -55,7 +55,7 @@ export const CatalogPage = () => {
 
   return (
     <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-      <Row gutter={[12, 24]}>
+      <Row gutter={[12, 24]} style={{ maxWidth: "560px", width: "100%" }}>
         {data.map((item) => (
           <Col span={12} key={item.id}>
             <Card
