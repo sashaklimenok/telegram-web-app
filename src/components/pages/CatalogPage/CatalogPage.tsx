@@ -17,18 +17,8 @@ export const CatalogPage = () => {
   const { roundToHundredths } = numberService;
   const mainButton = getMainButton();
 
-  const toggleMainButton = useCallback(() => {
-    mainButton.setParams({
-      text: `Купить (Total price ${roundToHundredths(
-        getTotalPrice(shoppingCartData)
-      )}$)`,
-    });
-    shoppingCartData.length ? mainButton.show() : mainButton.hide();
-  }, [mainButton, roundToHundredths, shoppingCartData]);
-
   const onAddToCart = (product: Product) => {
     setShoppingCartData([...shoppingCartData, product]);
-    toggleMainButton();
   };
 
   const onSubmit = useCallback(() => {
@@ -51,6 +41,15 @@ export const CatalogPage = () => {
         setIsLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    mainButton.setParams({
+      text: `Купить (Total price ${roundToHundredths(
+        getTotalPrice(shoppingCartData)
+      )}$)`,
+    });
+    shoppingCartData.length ? mainButton.show() : mainButton.hide();
+  }, [mainButton, roundToHundredths, shoppingCartData]);
 
   useEffect(() => {
     onEvent("mainButtonClicked", onSubmit);
