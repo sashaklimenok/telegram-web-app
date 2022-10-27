@@ -11,7 +11,10 @@ export const CatalogPage = () => {
 
   const onAddToCart = (product: Product) => {
     setShoppingCartData([...shoppingCartData, product]);
-    const totalPrice = shoppingCartData.reduce((acc, curr) => curr.price + acc, 0);
+    const totalPrice = shoppingCartData.reduce(
+      (acc, curr) => Number(curr.price.toFixed(1)) + acc,
+      0
+    );
     mainButton.setParams({
       text: `Купить (Total price ${totalPrice}$)`,
     });
