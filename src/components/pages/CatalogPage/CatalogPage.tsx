@@ -55,9 +55,9 @@ export const CatalogPage = () => {
 
   return (
     <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-      <Row gutter={[24, 24]}>
+      <Row gutter={[12, 24]}>
         {data.map((item) => (
-          <Col xs={24} sm={12} lg={6} key={item.id}>
+          <Col xs={12} lg={6} key={item.id}>
             <Card
               hoverable
               cover={
