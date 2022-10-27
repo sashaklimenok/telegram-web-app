@@ -7,27 +7,27 @@ class TelegramService {
     this.telegram = Telegram.WebApp;
   }
 
-  ready() {
+  ready = () => {
     this.telegram.ready();
   }
 
-  sendData(data: unknown) {
+  sendData = (data: unknown) => {
     this.telegram.sendData(JSON.stringify(data));
-  }
+  };
 
-  onEvent(eventType: TelegramWebApps.EventType, eventHandler: Function) {
+  onEvent = (eventType: TelegramWebApps.EventType, eventHandler: Function) => {
     this.telegram.onEvent(eventType, eventHandler);
-  }
+  };
 
-  offEvent(eventType: TelegramWebApps.EventType, eventHandler: Function) {
+  offEvent = (eventType: TelegramWebApps.EventType, eventHandler: Function) => {
     this.telegram.offEvent(eventType, eventHandler);
-  }
+  };
 
-  getQueryId() {
+  getQueryId = () => {
     return this.telegram.initDataUnsafe.query_id;
-  }
+  };
 
-  getMainButton() {
+  getMainButton = () => {
     return {
       text: this.telegram.MainButton.text,
       color: this.telegram.MainButton.color,
@@ -52,9 +52,9 @@ class TelegramService {
         this.telegram.MainButton.setParams(params);
       },
     };
-  }
+  };
 
-  getUserData() {
+  getUserData = () => {
     const userData = this.telegram.initDataUnsafe.user;
     return {
       id: userData?.id,
@@ -63,10 +63,10 @@ class TelegramService {
       lastName: userData?.last_name ?? "",
       photoUrl: userData?.photo_url,
     };
-  }
+  };
 
-  close() {
+  close = () => {
     this.telegram.close();
-  }
+  };
 }
 export const telegramService = new TelegramService();

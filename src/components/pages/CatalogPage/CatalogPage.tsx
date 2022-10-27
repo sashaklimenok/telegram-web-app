@@ -1,91 +1,77 @@
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Card, Space, Image } from "antd";
+import { Space, Spin } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { numberService, telegramService } from "services";
-import { data, Product } from "./MOCK_DATA";
 import "./catalogPage.css";
 import { shoppingCart } from "services/apiService/ShoppingCartService";
+import { getTotalPrice } from "./utils";
+import { Product } from "types/product";
+import { ProductCard } from "components/molecules";
+import { catalogApiService } from "services/apiService/CatalogApiService";
 
 export const CatalogPage = () => {
   const [shoppingCartData, setShoppingCartData] = useState<Product[]>([]);
-  const mainButton = telegramService.getMainButton();
+  const [catalogData, setCatalogData] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { getMainButton, getQueryId, ready, onEvent, offEvent } =
+    telegramService;
+  const { roundToHundredths } = numberService;
+  const mainButton = getMainButton();
 
-  const onAddToCart = (product: Product) => {
-    setShoppingCartData([...shoppingCartData, product]);
-  };
-
-  useEffect(() => {
-    const totalPrice = shoppingCartData.reduce(
-      (acc, curr) => curr.price + acc,
-      0
-    );
+  const toggleMainButton = useCallback(() => {
     mainButton.setParams({
-      text: `Купить (Total price ${numberService.roundToHundredths(
-        totalPrice
+      text: `Купить (Total price ${roundToHundredths(
+        getTotalPrice(shoppingCartData)
       )}$)`,
     });
     shoppingCartData.length ? mainButton.show() : mainButton.hide();
-  }, [mainButton, shoppingCartData]);
+  }, [mainButton, roundToHundredths, shoppingCartData]);
+
+  const onAddToCart = (product: Product) => {
+    setShoppingCartData([...shoppingCartData, product]);
+    toggleMainButton();
+  };
 
   const onSubmit = useCallback(() => {
+    setIsLoading(true);
     shoppingCart.saveProducts({
-      queryId: telegramService.getQueryId() as string,
+      queryId: getQueryId() as string,
       products: shoppingCartData,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shoppingCartData]);
 
   useEffect(() => {
-    telegramService.onEvent("mainButtonClicked", onSubmit);
-    return () => {
-      telegramService.offEvent("mainButtonClicked", onSubmit);
-    };
-  }, [onSubmit]);
-
-  useEffect(() => {
-    telegramService.ready();
+    setIsLoading(true);
+    catalogApiService
+      .getCatalogData()
+      .then((data) => {
+        setCatalogData(data as unknown as Product[]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
+  useEffect(() => {
+    onEvent("mainButtonClicked", onSubmit);
+    return () => {
+      offEvent("mainButtonClicked", onSubmit);
+    };
+  }, [offEvent, onEvent, onSubmit]);
+
+  useEffect(() => {
+    ready();
+  }, [ready]);
+
   return (
-    <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-      <div className="container">
-        {data
-          .map((item) => ({
-            ...item,
-            price: numberService.roundToHundredths(item.price),
-          }))
-          .map((item) => (
-            <Card
-              key={item.id}
-              hoverable
-              cover={
-                <Image
-                  width={200}
-                  height={300}
-                  style={{ objectFit: "contain" }}
-                  src={item.image}
-                />
-              }
-              style={{ textAlign: "center" }}
-            >
-              <Card.Meta
-                style={{ justifyContent: "center" }}
-                title={item.title}
-                description={`${item.price} $`}
-              />
-              <Button
-                style={{ marginTop: "12px" }}
-                type="primary"
-                shape="round"
-                icon={<ShoppingCartOutlined />}
-                size={"small"}
-                onClick={() => onAddToCart(item)}
-              >
-                Добавить в корзину
-              </Button>
-            </Card>
+    <Spin spinning={isLoading}>
+      <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+        <div className="container">
+          {catalogData.map((item) => (
+            <ProductCard key={item.id} item={item} onClick={onAddToCart} />
           ))}
-      </div>
-    </Space>
+        </div>
+      </Space>
+    </Spin>
   );
 };
