@@ -3,6 +3,7 @@ import { notification } from "antd";
 
 export class ApiService {
   protected async get(url: string): Promise<void> {
+    console.log(window.location)
     return await fetch(`${API_URL}${url}`, {
       method: "GET",
       headers: {
