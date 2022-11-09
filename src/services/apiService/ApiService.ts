@@ -7,14 +7,14 @@ export class ApiService {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": API_URL,
+        "Origin": API_URL,
       },
     })
       .then((data) => data.json())
       .catch((error) =>
         notification.error({
           message: "Request was failed",
-          description: error.message,
+          description: error?.message,
         })
       );
   }
@@ -24,7 +24,7 @@ export class ApiService {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": API_URL,
+        "Origin": API_URL,
       },
       body: JSON.stringify(body),
     })
@@ -32,7 +32,7 @@ export class ApiService {
       .catch((error) =>
         notification.error({
           message: "Request was failed",
-          description: error.message,
+          description: error?.message,
         })
       );
   }
