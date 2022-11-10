@@ -3,12 +3,11 @@ import { notification } from "antd";
 
 export class ApiService {
   protected async get(url: string): Promise<void> {
-    console.log(window.location)
+    console.log(window.location);
     return await fetch(`${API_URL}${url}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Origin": API_URL,
       },
     })
       .then((data) => data.json())
@@ -25,7 +24,6 @@ export class ApiService {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Origin": API_URL,
       },
       body: JSON.stringify(body),
     })
